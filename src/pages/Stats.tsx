@@ -1,8 +1,9 @@
+
 import Layout from "@/components/Layout";
 import SystemStatsCard from "@/components/SystemStatsCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useStats } from "@/providers/StatsProvider";
-import { BarChart3, Cpu, Memory, Battery, Clock } from "lucide-react";
+import { BarChart3, Cpu, MemoryStick, Battery, Clock } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { useState, useEffect } from "react";
 
@@ -50,7 +51,7 @@ const Stats = () => {
           <Card className="bg-gradient-to-br from-gray-900 to-gray-800 border-gray-800">
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
-                <Memory className="h-5 w-5 text-turbo-purple" />
+                <MemoryStick className="h-5 w-5 text-turbo-purple" />
                 RAM Usage History
               </CardTitle>
             </CardHeader>
