@@ -1,6 +1,6 @@
 
 import { cn } from "@/lib/utils";
-import { Cpu, GameController, Home, Settings, BarChart3, Activity } from "lucide-react";
+import { Cpu, Gamepad, Home, Settings, BarChart3, Activity } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 interface LayoutProps {
@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
     <div className="flex h-full">
       <div className="fixed bottom-0 left-0 z-10 flex w-full justify-center bg-black/60 backdrop-blur-lg border-t border-gray-800 sm:relative sm:w-16 sm:flex-col sm:border-r sm:border-t-0 sm:h-full">
         <NavItem to="/" icon={<Home size={22} />} label="Home" />
-        <NavItem to="/games" icon={<GameController size={22} />} label="Games" />
+        <NavItem to="/games" icon={<Gamepad size={22} />} label="Games" />
         <NavItem to="/performance" icon={<Cpu size={22} />} label="Performance" />
         <NavItem to="/stats" icon={<BarChart3 size={22} />} label="Stats" />
         <NavItem to="/settings" icon={<Settings size={22} />} label="Settings" />

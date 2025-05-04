@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useStats } from "@/providers/StatsProvider";
 import { Progress } from "@/components/ui/progress";
-import { Cpu, Memory, Battery, Activity } from "lucide-react";
+import { Cpu, Ram, Battery, Activity } from "lucide-react";
 
 const SystemStatsCard = () => {
   const { stats } = useStats();
@@ -17,11 +17,11 @@ const SystemStatsCard = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         <StatItem 
-          icon={<Memory className="h-4 w-4 text-turbo-purple" />}
+          icon={<Ram className="h-4 w-4 text-turbo-purple" />}
           label="RAM Usage" 
           value={`${Math.round(stats.ramUsage)}%`}
           progress={stats.ramUsage}
-          colorClass={stats.ramUsage > 80 ? "bg-red-500" : "bg-turbo-purple"}
+          colorClass="bg-turbo-purple"
         />
         
         <StatItem 
@@ -69,7 +69,7 @@ const StatItem = ({ icon, label, value, progress, colorClass }: StatItemProps) =
       </div>
       <span className="text-sm font-medium">{value}</span>
     </div>
-    <Progress value={progress} className="h-1" indicatorClassName={colorClass} />
+    <Progress value={progress} className="h-1" className={`h-1 ${colorClass}`} />
   </div>
 );
 

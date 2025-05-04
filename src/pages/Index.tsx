@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +9,7 @@ import { useShizuku } from "@/providers/ShizukuProvider";
 import { useGame } from "@/providers/GameProvider";
 import { useFloatingToolbox } from "@/providers/FloatingToolboxProvider";
 import { Link } from "react-router-dom";
-import { GameController, Cpu, Settings } from "lucide-react";
+import { Gamepad, Cpu, Settings } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Index = () => {
@@ -53,7 +52,7 @@ const Index = () => {
         <div className="space-y-8">
           <div>
             <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
-              <GameController className="h-5 w-5 text-turbo-purple" />
+              <Gamepad className="h-5 w-5 text-turbo-purple" />
               Game Library
             </h2>
             

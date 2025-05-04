@@ -2,8 +2,8 @@
 import { useFloatingToolbox } from "@/providers/FloatingToolboxProvider";
 import { useGame } from "@/providers/GameProvider";
 import { useStats } from "@/providers/StatsProvider";
-import { Button } from "@/components/ui/card";
-import { X, Minimize, Maximize, Cpu, Memory, ChevronUp, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { X, Minimize, Maximize, Cpu, Ram, ChevronUp, ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
 const FloatingToolbox = () => {
@@ -95,7 +95,7 @@ const FloatingToolbox = () => {
       {/* Stats Bar */}
       <div className={`flex items-center gap-3 px-3 py-2 bg-black/40 border-t border-b border-white/5 ${expanded ? 'justify-between' : 'justify-center'}`}>
         <div className="flex items-center gap-1">
-          <Memory className="h-3 w-3 text-turbo-purple" />
+          <Ram className="h-3 w-3 text-turbo-purple" />
           <span className="text-xs">{Math.round(stats.ramUsage)}%</span>
         </div>
         {expanded && (

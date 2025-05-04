@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGame } from "@/providers/GameProvider";
 import { useToast } from "@/components/ui/use-toast";
-import { GameController, ChevronLeft, Save, Trash } from "lucide-react";
+import { Gamepad, ChevronLeft, Save, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { GameSettings } from "@/types";
 
@@ -87,7 +86,7 @@ const GameDetail = () => {
           <Card className="bg-gradient-to-br from-gray-900 to-gray-800 border-gray-800">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2">
-                <GameController className="h-5 w-5 text-turbo-purple" />
+                <Gamepad className="h-5 w-5 text-turbo-purple" />
                 Game Optimization Settings
               </CardTitle>
             </CardHeader>
@@ -160,7 +159,7 @@ const GameDetail = () => {
                 });
               }}
             >
-              <GameController className="h-4 w-4" />
+              <Gamepad className="h-4 w-4" />
               Launch & Boost
             </Button>
           </div>
