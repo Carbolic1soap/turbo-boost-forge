@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useStats } from "@/providers/StatsProvider";
 import { Progress } from "@/components/ui/progress";
-import { Cpu, Activity, Battery, MemoryStick, Palette } from "lucide-react";
+import { Cpu, MemoryStick, Battery, Activity, Palette, Smartphone } from "lucide-react";
 import { useShizuku } from "@/providers/ShizukuProvider";
 
 const SystemStatsCard = () => {
@@ -23,6 +23,17 @@ const SystemStatsCard = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
+        <div className="rounded-md bg-gray-800/50 p-3 border border-gray-700/40 mb-4">
+          <h3 className="font-medium text-sm mb-2 flex items-center gap-2">
+            <Smartphone className="h-4 w-4 text-turbo-blue" />
+            Active Device
+          </h3>
+          <div className="text-xs text-center">
+            <p className="text-turbo-blue font-medium">Google Pixel 7 Pro</p>
+            <p className="text-gray-400 mt-1">Android 14 • Tensor G2 • Mali-G710</p>
+          </div>
+        </div>
+
         <StatItem 
           icon={<MemoryStick className="h-4 w-4 text-turbo-purple" />}
           label="RAM Usage" 

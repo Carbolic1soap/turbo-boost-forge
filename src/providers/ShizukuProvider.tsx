@@ -7,9 +7,20 @@ interface ShizukuContextType {
   isShizukuAvailable: boolean;
   isShizukuGranted: boolean;
   graphicsApi: GraphicsApi;
+  isGamingMode: boolean;
   checkShizukuPermission: () => Promise<boolean>;
   requestShizukuPermission: () => Promise<boolean>;
   setGraphicsApi: (api: GraphicsApi) => void;
+  toggleGamingMode: () => void;
+  optimizeSystem: (options: SystemOptimizationOptions) => void;
+}
+
+export interface SystemOptimizationOptions {
+  cpuBoost?: boolean;
+  ramBoost?: boolean;
+  thermalControl?: boolean;
+  networkOptimize?: boolean;
+  dndMode?: boolean;
 }
 
 const ShizukuContext = createContext<ShizukuContextType | undefined>(undefined);
@@ -18,6 +29,7 @@ export const ShizukuProvider = ({ children }: { children: React.ReactNode }) => 
   const [isShizukuAvailable, setIsShizukuAvailable] = useState(false);
   const [isShizukuGranted, setIsShizukuGranted] = useState(false);
   const [graphicsApi, setGraphicsApi] = useState<GraphicsApi>("auto");
+  const [isGamingMode, setIsGamingMode] = useState(false);
   const { toast } = useToast();
 
   // In a real app, we would actually check for Shizuku
@@ -55,6 +67,79 @@ export const ShizukuProvider = ({ children }: { children: React.ReactNode }) => 
     }
   };
 
+  const toggleGamingMode = () => {
+    if (!isShizukuGranted) {
+      toast({
+        variant: "destructive",
+        title: "Permission Required",
+        description: "Shizuku permission is needed to toggle gaming mode",
+      });
+      return;
+    }
+    
+    setIsGamingMode(prev => !prev);
+    
+    if (!isGamingMode) {
+      // Turning on gaming mode
+      optimizeSystem({
+        cpuBoost: true,
+        ramBoost: true,
+        thermalControl: true,
+        networkOptimize: true,
+        dndMode: true
+      });
+      
+      toast({
+        title: "Gaming Mode Activated",
+        description: "All system optimizations applied for maximum performance",
+      });
+    } else {
+      // Turning off gaming mode
+      toast({
+        title: "Gaming Mode Deactivated",
+        description: "System returning to normal settings",
+      });
+    }
+  };
+
+  const optimizeSystem = (options: SystemOptimizationOptions) => {
+    if (!isShizukuGranted) {
+      toast({
+        variant: "destructive",
+        title: "Permission Required",
+        description: "Shizuku permission is needed for system optimization",
+      });
+      return;
+    }
+    
+    console.log("Applying system optimizations:", options);
+    
+    if (options.cpuBoost) {
+      console.log("CPU boost applied - setting governor to performance");
+      // In a real app, would use Shizuku to set CPU governor
+    }
+    
+    if (options.ramBoost) {
+      console.log("RAM boost applied - killing background processes");
+      // In a real app, would use Shizuku to free RAM
+    }
+    
+    if (options.thermalControl) {
+      console.log("Thermal controls modified - adjusting throttling thresholds");
+      // In a real app, would use Shizuku to modify thermal settings
+    }
+    
+    if (options.networkOptimize) {
+      console.log("Network optimization applied - prioritizing game traffic");
+      // In a real app, would use Shizuku to optimize network
+    }
+    
+    if (options.dndMode) {
+      console.log("DND mode activated - silencing notifications");
+      // In a real app, would use Shizuku to enable DND mode
+    }
+  };
+
   useEffect(() => {
     // Check for Shizuku when the app loads
     checkShizukuPermission();
@@ -66,9 +151,12 @@ export const ShizukuProvider = ({ children }: { children: React.ReactNode }) => 
         isShizukuAvailable,
         isShizukuGranted,
         graphicsApi,
+        isGamingMode,
         checkShizukuPermission,
         requestShizukuPermission,
         setGraphicsApi: handleSetGraphicsApi,
+        toggleGamingMode,
+        optimizeSystem,
       }}
     >
       {children}

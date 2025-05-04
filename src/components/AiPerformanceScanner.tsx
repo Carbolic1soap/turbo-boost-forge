@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { BrainCircuit, Sparkles, AlertCircle } from "lucide-react";
+import { BrainCircuit, Sparkles, AlertCircle, Monitor, Cpu, MemoryStick, Smartphone } from "lucide-react";
 import { useShizuku } from "@/providers/ShizukuProvider";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -15,10 +15,19 @@ interface ScanResult {
   batteryOptimization: string;
 }
 
+interface DeviceInfo {
+  model: string;
+  osVersion: string;
+  cpuModel: string;
+  ramTotal: string;
+  gpuModel: string;
+}
+
 const AiPerformanceScanner = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [scanProgress, setScanProgress] = useState(0);
   const [scanResults, setScanResults] = useState<ScanResult | null>(null);
+  const [deviceInfo, setDeviceInfo] = useState<DeviceInfo | null>(null);
   const { isShizukuGranted } = useShizuku();
   const { toast } = useToast();
 
@@ -47,6 +56,17 @@ const AiPerformanceScanner = () => {
       });
     }, 100);
 
+    // Simulate device info detection
+    setTimeout(() => {
+      setDeviceInfo({
+        model: "Google Pixel 7 Pro", // Mock data
+        osVersion: "Android 14",
+        cpuModel: "Google Tensor G2",
+        ramTotal: "12 GB LPDDR5",
+        gpuModel: "ARM Mali-G710 MP7",
+      });
+    }, 2000);
+
     // Simulate scan completion
     setTimeout(() => {
       clearInterval(interval);
@@ -74,6 +94,21 @@ const AiPerformanceScanner = () => {
       title: "Optimizations Applied",
       description: "Temporary system changes made for maximum performance",
     });
+    
+    // Additional feedback about specific optimizations
+    setTimeout(() => {
+      toast({
+        title: "Gaming Mode Activated",
+        description: "CPU frequency locked to maximum for better gaming performance",
+      });
+    }, 1000);
+    
+    setTimeout(() => {
+      toast({
+        title: "RAM Optimization Complete",
+        description: "Background processes minimized for reduced lag",
+      });
+    }, 2000);
   };
 
   return (
@@ -88,6 +123,37 @@ const AiPerformanceScanner = () => {
         <p className="text-sm text-gray-400">
           Scan your device using AI to detect optimal settings for maximum gaming performance
         </p>
+
+        {deviceInfo && (
+          <div className="rounded-md bg-gray-800/50 p-3 border border-gray-700/40">
+            <h3 className="font-medium text-sm mb-2 flex items-center gap-2">
+              <Smartphone className="h-4 w-4 text-turbo-blue" />
+              Device Information
+            </h3>
+            <ul className="space-y-1.5 text-xs">
+              <li className="flex justify-between">
+                <span className="text-gray-400">Device Model:</span>
+                <span>{deviceInfo.model}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-400">OS Version:</span>
+                <span>{deviceInfo.osVersion}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-400">Processor:</span>
+                <span>{deviceInfo.cpuModel}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-400">RAM:</span>
+                <span>{deviceInfo.ramTotal}</span>
+              </li>
+              <li className="flex justify-between">
+                <span className="text-gray-400">Graphics:</span>
+                <span>{deviceInfo.gpuModel}</span>
+              </li>
+            </ul>
+          </div>
+        )}
 
         {!isScanning && scanProgress === 0 && (
           <Button 
@@ -152,7 +218,7 @@ const AiPerformanceScanner = () => {
               className="w-full gap-2 bg-turbo-blue hover:bg-turbo-skyBlue"
               onClick={applyOptimizations}
             >
-              Apply Optimizations
+              Apply Gaming Optimizations
             </Button>
           </div>
         )}
