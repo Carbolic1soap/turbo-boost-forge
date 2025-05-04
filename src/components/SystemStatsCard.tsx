@@ -2,10 +2,17 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useStats } from "@/providers/StatsProvider";
 import { Progress } from "@/components/ui/progress";
-import { Cpu, Activity, Battery, MemoryStick } from "lucide-react";
+import { Cpu, Activity, Battery, MemoryStick, Palette } from "lucide-react";
+import { useShizuku } from "@/providers/ShizukuProvider";
 
 const SystemStatsCard = () => {
   const { stats } = useStats();
+  const { graphicsApi } = useShizuku();
+
+  const formatGraphicsApi = () => {
+    if (graphicsApi === "auto") return "Auto";
+    return graphicsApi.toUpperCase();
+  };
 
   return (
     <Card className="bg-gradient-to-br from-gray-900 to-gray-800 border-gray-800">
@@ -46,6 +53,14 @@ const SystemStatsCard = () => {
           value={`${Math.round(stats.batteryLevel)}%`}
           progress={stats.batteryLevel}
           colorClass={stats.batteryLevel < 20 ? "bg-red-500" : "bg-green-500"}
+        />
+
+        <StatItem 
+          icon={<Palette className="h-4 w-4 text-cyan-400" />}
+          label="Graphics API" 
+          value={formatGraphicsApi()}
+          progress={100}
+          colorClass="bg-cyan-400"
         />
       </CardContent>
     </Card>

@@ -1,12 +1,15 @@
 
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { GraphicsApi } from "@/components/GraphicsApiSelector";
 
 interface ShizukuContextType {
   isShizukuAvailable: boolean;
   isShizukuGranted: boolean;
+  graphicsApi: GraphicsApi;
   checkShizukuPermission: () => Promise<boolean>;
   requestShizukuPermission: () => Promise<boolean>;
+  setGraphicsApi: (api: GraphicsApi) => void;
 }
 
 const ShizukuContext = createContext<ShizukuContextType | undefined>(undefined);
@@ -14,6 +17,7 @@ const ShizukuContext = createContext<ShizukuContextType | undefined>(undefined);
 export const ShizukuProvider = ({ children }: { children: React.ReactNode }) => {
   const [isShizukuAvailable, setIsShizukuAvailable] = useState(false);
   const [isShizukuGranted, setIsShizukuGranted] = useState(false);
+  const [graphicsApi, setGraphicsApi] = useState<GraphicsApi>("auto");
   const { toast } = useToast();
 
   // In a real app, we would actually check for Shizuku
@@ -39,6 +43,18 @@ export const ShizukuProvider = ({ children }: { children: React.ReactNode }) => 
     return true;
   };
 
+  const handleSetGraphicsApi = (api: GraphicsApi) => {
+    setGraphicsApi(api);
+    console.log(`Graphics API set to: ${api}`);
+    
+    if (isShizukuGranted) {
+      toast({
+        title: "Graphics API Changed",
+        description: `Display rendering changed to ${api === 'auto' ? 'Auto' : api.toUpperCase()}`,
+      });
+    }
+  };
+
   useEffect(() => {
     // Check for Shizuku when the app loads
     checkShizukuPermission();
@@ -49,8 +65,10 @@ export const ShizukuProvider = ({ children }: { children: React.ReactNode }) => 
       value={{
         isShizukuAvailable,
         isShizukuGranted,
+        graphicsApi,
         checkShizukuPermission,
         requestShizukuPermission,
+        setGraphicsApi: handleSetGraphicsApi,
       }}
     >
       {children}

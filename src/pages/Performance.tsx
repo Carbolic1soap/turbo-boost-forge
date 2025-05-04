@@ -1,12 +1,16 @@
 
 import Layout from "@/components/Layout";
 import { PerformanceCard, RamBoostCard } from "@/components/PerformanceCard";
+import GraphicsApiSelector from "@/components/GraphicsApiSelector";
+import AiPerformanceScanner from "@/components/AiPerformanceScanner";
 import { Cpu, Activity, Wifi, Moon } from "lucide-react";
 import { useGame } from "@/providers/GameProvider";
 import { useToast } from "@/components/ui/use-toast";
+import { useShizuku } from "@/providers/ShizukuProvider";
 
 const Performance = () => {
   const { toast } = useToast();
+  const { graphicsApi, setGraphicsApi } = useShizuku();
   
   const handlePerformanceMode = () => {
     toast({
@@ -40,32 +44,41 @@ const Performance = () => {
           <p className="text-gray-400">Boost your gaming experience</p>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <RamBoostCard />
+        <div className="space-y-6">
+          <AiPerformanceScanner />
           
-          <PerformanceCard
-            title="Performance Mode"
-            description="Boost CPU and GPU by prioritizing game processes for maximum performance."
-            icon={<Activity className="h-5 w-5 text-turbo-blue" />}
-            actionLabel="Activate Performance Mode"
-            onAction={handlePerformanceMode}
+          <GraphicsApiSelector 
+            selectedApi={graphicsApi}
+            onApiChange={setGraphicsApi}
           />
           
-          <PerformanceCard
-            title="Network Optimizer"
-            description="Optimize network settings for lower latency during online gameplay."
-            icon={<Wifi className="h-5 w-5 text-turbo-skyBlue" />}
-            actionLabel="Optimize Network"
-            onAction={handleNetworkOptimize}
-          />
-          
-          <PerformanceCard
-            title="DND Mode"
-            description="Block notifications and calls while gaming for uninterrupted gameplay."
-            icon={<Moon className="h-5 w-5 text-turbo-purpleDark" />}
-            actionLabel="Enable DND Mode"
-            onAction={handleDndMode}
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <RamBoostCard />
+            
+            <PerformanceCard
+              title="Performance Mode"
+              description="Boost CPU and GPU by prioritizing game processes for maximum performance."
+              icon={<Activity className="h-5 w-5 text-turbo-blue" />}
+              actionLabel="Activate Performance Mode"
+              onAction={handlePerformanceMode}
+            />
+            
+            <PerformanceCard
+              title="Network Optimizer"
+              description="Optimize network settings for lower latency during online gameplay."
+              icon={<Wifi className="h-5 w-5 text-turbo-skyBlue" />}
+              actionLabel="Optimize Network"
+              onAction={handleNetworkOptimize}
+            />
+            
+            <PerformanceCard
+              title="DND Mode"
+              description="Block notifications and calls while gaming for uninterrupted gameplay."
+              icon={<Moon className="h-5 w-5 text-turbo-purpleDark" />}
+              actionLabel="Enable DND Mode"
+              onAction={handleDndMode}
+            />
+          </div>
         </div>
       </div>
     </Layout>
